@@ -67,6 +67,9 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
+    // https://mvnrepository.com/artifact/org.json/json
+    implementation 'org.json:json:20211205'
+
     testImplementation 'junit:junit:4.12'
 }
 
