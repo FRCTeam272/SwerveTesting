@@ -1,0 +1,24 @@
+{
+    "DriveTrain":{
+        "FrontRight":{
+            "TurnMotor": 0,
+            "SpeedMotor": 0,
+            "OffsetValue:": 0
+        },
+        "BackRight":{
+            "TurnMotor": 0,
+            "SpeedMotor": 0,
+            "OffsetValue:": 0
+        },
+        "FrontLeft":{
+            "TurnMotor": 0,
+            "SpeedMotor": 0,
+            "OffsetValue:": 0
+        },
+        "BackLeft":{
+                "TurnMotor": 0,
+                "SpeedMotor": 0,
+                "OffsetValue:": 0
+            }
+    }
+}

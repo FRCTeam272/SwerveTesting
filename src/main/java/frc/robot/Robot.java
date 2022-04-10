@@ -6,6 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+import org.json.*;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -14,10 +18,25 @@ import edu.wpi.first.wpilibj.TimedRobot;
  */
 public class Robot extends TimedRobot {
   
+  JSONObject config;
+
   /** runs at zero packet */
   @Override
   public void robotInit() {
+    try{
+      generateConfiguration();
+    } catch (FileNotFoundException ex){
+      System.out.println(ex.getMessage());
+    }
     
+  }
+
+  private void generateConfiguration() throws FileNotFoundException{
+    config = new JSONObject(
+      new JSONTokener(
+        new FileInputStream("config.json")
+      )
+    );
   }
 
   /** runs every n+1 packet */
