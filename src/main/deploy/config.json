@@ -16,9 +16,9 @@
             "OffsetValue:": 0
         },
         "BackLeft":{
-                "TurnMotor": 0,
-                "SpeedMotor": 0,
-                "OffsetValue:": 0
-            }
+            "TurnMotor": 0,
+            "SpeedMotor": 0,
+            "OffsetValue:": 0
+        }
     }
 }

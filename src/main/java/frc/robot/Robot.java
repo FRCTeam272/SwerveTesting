@@ -23,18 +23,22 @@ public class Robot extends TimedRobot {
   /** runs at zero packet */
   @Override
   public void robotInit() {
-    try{
-      generateConfiguration();
-    } catch (FileNotFoundException ex){
-      System.out.println(ex.getMessage());
+    for (String loc : new String[] {"config.json"}) {
+      try{
+        generateConfiguration(loc);
+        break;
+      } catch (FileNotFoundException ex){
+        System.out.println("Failed to find " + loc);
+      }  
     }
+    
     
   }
 
-  private void generateConfiguration() throws FileNotFoundException{
+  private void generateConfiguration(String loc) throws FileNotFoundException{
     config = new JSONObject(
       new JSONTokener(
-        new FileInputStream("config.json")
+        new FileInputStream(loc)
       )
     );
   }
