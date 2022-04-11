@@ -12,11 +12,11 @@ import org.json.JSONObject;
 
 public class SingleDrive {
     // Swap out the motor controllers of this file where needed
-    TalonFX speedMotor;
-    TalonSRX turnMotor;
+    private TalonFX speedMotor;
+    private TalonSRX turnMotor;
     
-    double offset;
-    double currentAngle = 0;
+    private double offset;
+    private double currentAngle = 0;
 
     /**
      * Creates objects and assigns to the ports as listed in <a href="../../deploy.config.json">config file</a>

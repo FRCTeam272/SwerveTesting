@@ -19,6 +19,8 @@
             "TurnMotor": 0,
             "SpeedMotor": 0,
             "OffsetValue:": 0
-        }
+        },
+        "LENGTH": 0,
+        "WIDTH": 0
     }
 }
