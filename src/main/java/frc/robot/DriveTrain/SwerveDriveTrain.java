@@ -36,7 +36,7 @@ public class SwerveDriveTrain {
     private double calcAngle(double val1, double val2){
         // TODO: convert this to work on units instead of angles
         var angle = Math.atan2(val1, val2) / Math.PI;
-        
+        angle = (angle / 360) * 1024;
         return angle;
     }
 
