@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.DriveTrain.SwerveDriveTrain;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,7 +21,8 @@ import org.json.*;
 public class Robot extends TimedRobot {
   
   JSONObject config;
-
+  SwerveDriveTrain drive;
+  XboxController xbox;
   /** runs at zero packet */
   @Override
   public void robotInit() {
@@ -32,7 +35,8 @@ public class Robot extends TimedRobot {
       }  
     }
     
-    
+    drive = new SwerveDriveTrain(config.getJSONObject("DriveTrain"));
+    xbox = new XboxController(0);
   }
 
   private void generateConfiguration(String loc) throws FileNotFoundException{
@@ -75,7 +79,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    drive.drive(
+      xbox.getLeftX(),
+      xbox.getLeftY(),
+      xbox.getRightX()
+    );
+  }
 
   @Override
   public void testInit() {
