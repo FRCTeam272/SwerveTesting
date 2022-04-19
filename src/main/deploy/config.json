@@ -1,21 +1,21 @@
 {
     "DriveTrain":{
-        "FrontRight":{
+        "RightFront":{
             "TurnMotor": 20,
             "SpeedMotor": 10,
             "OffsetValue:": 515
         },
-        "BackRight":{
+        "RightRear":{
             "TurnMotor": 21,
             "SpeedMotor": 11,
             "OffsetValue:": 481
         },
-        "FrontLeft":{
+        "LeftFront":{
             "TurnMotor": 23,
             "SpeedMotor": 13,
             "OffsetValue:": 514
         },
-        "BackLeft":{
+        "LeftRear":{
             "TurnMotor": 12,
             "SpeedMotor": 22,
             "OffsetValue:": 481

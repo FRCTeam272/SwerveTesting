@@ -1,9 +1,12 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import org.json.JSONObject;
 
 
 public class Drive extends SubsystemBase {
@@ -17,10 +20,15 @@ public class Drive extends SubsystemBase {
     private static TalonSRX steerRightFront;
     private static TalonSRX steerRightRear;
 
-    private static AnalogInput inputLeftFront;        
-    private static AnalogInput inputLeftRear;
-    private static AnalogInput inputRightFront;
-    private static AnalogInput inputRightRear;
+    private static PIDController steerLeftFrontPID;
+    private static PIDController steerLeftRearPID;
+    private static PIDController steerRightFrontPID;
+    private static PIDController steerRightRearPID;
+
+    private static double inputLeftFront;        
+    private static double inputLeftRear;
+    private static double inputRightFront;
+    private static double inputRightRear;
 
     public static final double WHEEL_BASE_LENGTH = 18;
     public static final double WHEEL_BASE_WIDTH = 24.5;
@@ -44,5 +52,70 @@ public class Drive extends SubsystemBase {
     private final double leftPow = 1.0;
 	private final double rightPow = 1.0;
 
+    public Drive(JSONObject config) {
+        var current = config.getJSONObject("LeftFront");
+        driveLeftFront = new TalonFX(current.getInt("SpeedMotor"));
+        steerLeftFront = new TalonSRX(current.getInt("TurnMotor"));
+        driveLeftFront.configFactoryDefault();
+        driveLeftFront.setInverted(false);
+        driveLeftFront.configOpenloopRamp(RAMP_RATE);
 
+        current = config.getJSONObject("LeftRear");
+        driveLeftRear = new TalonFX(current.getInt("SpeedMotor"));
+        steerLeftRear = new TalonSRX(current.getInt("TurnMotor"));
+        driveLeftRear.configFactoryDefault();
+        driveLeftRear.setInverted(false);
+        driveLeftRear.configOpenloopRamp(RAMP_RATE);
+
+        current = config.getJSONObject("RightFront");
+        driveRightFront = new TalonFX(current.getInt("SpeedMotor"));
+        steerRightFront = new TalonSRX(current.getInt("TurnMotor"));
+        driveRightFront.configFactoryDefault();
+        driveRightFront.setInverted(false);
+        driveRightFront.configOpenloopRamp(RAMP_RATE);
+
+        current = config.getJSONObject("RightRear");
+        driveRightRear = new TalonFX(current.getInt("SpeedMotor"));
+        steerLeftFront = new TalonSRX(current.getInt("TurnMotor"));
+        driveRightRear.configFactoryDefault();
+        driveRightRear.setInverted(false);
+        driveRightRear.configOpenloopRamp(RAMP_RATE);
+        
+        steerLeftFront.configFactoryDefault();
+        steerLeftFront.setInverted(false);
+        steerLeftFront.configOpenloopRamp(RAMP_RATE);
+
+        steerLeftRear.configFactoryDefault();
+        steerLeftRear.setInverted(false);
+        steerLeftRear.configOpenloopRamp(RAMP_RATE);
+
+        steerRightFront.configFactoryDefault();
+        steerRightFront.setInverted(false);
+        steerRightFront.configOpenloopRamp(RAMP_RATE);
+
+        steerRightRear.configFactoryDefault();
+        steerRightRear.setInverted(false);
+        steerRightRear.configOpenloopRamp(RAMP_RATE);
+        
+        this.updateEncoderValues();
+
+        steerLeftFrontPID = new PIDController(STEER_P, STEER_I, STEER_D);
+        steerLeftFrontPID.enableContinuousInput(0, ENCODER_COUNT_PER_ROTATION);
+
+        steerLeftRearPID = new PIDController(STEER_P, STEER_I, STEER_D);
+        steerLeftRearPID.enableContinuousInput(0, ENCODER_COUNT_PER_ROTATION);
+
+        steerRightFrontPID = new PIDController(STEER_P, STEER_I, STEER_D);
+        steerRightFrontPID.enableContinuousInput(0, ENCODER_COUNT_PER_ROTATION);
+
+        steerRightRearPID = new PIDController(STEER_P, STEER_I, STEER_D);
+        steerRightRearPID.enableContinuousInput(0, ENCODER_COUNT_PER_ROTATION);
+    }
+
+    private void updateEncoderValues(){
+        inputLeftFront = steerLeftFront.getSelectedSensorPosition(); 
+        inputLeftRear =  steerLeftRear.getSelectedSensorPosition();
+        inputRightFront = steerRightFront.getSelectedSensorPosition();
+        inputRightRear = steerRightRear.getSelectedSensorPosition();    
+    }
 }
