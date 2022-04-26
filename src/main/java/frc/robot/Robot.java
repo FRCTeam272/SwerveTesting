@@ -21,12 +21,13 @@ import org.json.*;
 public class Robot extends TimedRobot {
   
   JSONObject config;
+  Drive drive;
   
   XboxController xbox;
   /** runs at zero packet */
   @Override
   public void robotInit() {
-    for (String loc : new String[] {"config.json"}) {
+    for (String loc : new String[] {"/home/lvuser/deploy/config.json"}) {
       try{
         generateConfiguration(loc);
         break;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
       }  
     }
     
-    
+    drive = new Drive(config.getJSONObject("DriveTrain"));
     xbox = new XboxController(0);
   }
 
@@ -50,7 +51,13 @@ public class Robot extends TimedRobot {
   /** runs every n+1 packet */
   @Override
   public void robotPeriodic() {
-    
+    var limit = .3;
+    drive.drive(
+      xbox.getLeftY() , 
+      xbox.getLeftX() , 
+      xbox.getRightX(), 
+      true
+    );
   }
 
   /** First Disabled */

@@ -60,47 +60,55 @@ public class Drive extends SubsystemBase {
 	private final double rightPow = 1.0;
 
     public Drive(JSONObject config) {
+		System.out.println("Making DriveTrain");
         var current = config.getJSONObject("LeftFront");
-        driveLeftFront = new TalonFX(current.getInt("SpeedMotor"));
+        
+		driveLeftFront = new TalonFX(current.getInt("SpeedMotor"));
         steerLeftFront = new TalonSRX(current.getInt("TurnMotor"));
-        driveLeftFront.configFactoryDefault();
+        
+		driveLeftFront.configFactoryDefault();
         driveLeftFront.setInverted(false);
         driveLeftFront.configOpenloopRamp(RAMP_RATE);
+
+		steerLeftFront.configFactoryDefault();
+        steerLeftFront.setInverted(false);
+        steerLeftFront.configOpenloopRamp(RAMP_RATE);
+
 
         current = config.getJSONObject("LeftRear");
         driveLeftRear = new TalonFX(current.getInt("SpeedMotor"));
         steerLeftRear = new TalonSRX(current.getInt("TurnMotor"));
+
         driveLeftRear.configFactoryDefault();
         driveLeftRear.setInverted(false);
         driveLeftRear.configOpenloopRamp(RAMP_RATE);
 
+		steerLeftRear.configFactoryDefault();
+        steerLeftRear.setInverted(false);
+        steerLeftRear.configOpenloopRamp(RAMP_RATE);
+
+
         current = config.getJSONObject("RightFront");
         driveRightFront = new TalonFX(current.getInt("SpeedMotor"));
         steerRightFront = new TalonSRX(current.getInt("TurnMotor"));
-        driveRightFront.configFactoryDefault();
+        
+		driveRightFront.configFactoryDefault();
         driveRightFront.setInverted(false);
         driveRightFront.configOpenloopRamp(RAMP_RATE);
 
+		steerRightFront.configFactoryDefault();
+        steerRightFront.setInverted(false);
+        steerRightFront.configOpenloopRamp(RAMP_RATE);
+
         current = config.getJSONObject("RightRear");
         driveRightRear = new TalonFX(current.getInt("SpeedMotor"));
-        steerLeftFront = new TalonSRX(current.getInt("TurnMotor"));
+        steerRightRear = new TalonSRX(current.getInt("TurnMotor"));
+
         driveRightRear.configFactoryDefault();
         driveRightRear.setInverted(false);
         driveRightRear.configOpenloopRamp(RAMP_RATE);
         
-        steerLeftFront.configFactoryDefault();
-        steerLeftFront.setInverted(false);
-        steerLeftFront.configOpenloopRamp(RAMP_RATE);
-
-        steerLeftRear.configFactoryDefault();
-        steerLeftRear.setInverted(false);
-        steerLeftRear.configOpenloopRamp(RAMP_RATE);
-
-        steerRightFront.configFactoryDefault();
-        steerRightFront.setInverted(false);
-        steerRightFront.configOpenloopRamp(RAMP_RATE);
-
-        steerRightRear.configFactoryDefault();
+		steerRightRear.configFactoryDefault();
         steerRightRear.setInverted(false);
         steerRightRear.configOpenloopRamp(RAMP_RATE);
         
