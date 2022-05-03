@@ -33,4 +33,7 @@ public final class Constants {
 
     public static final double LENGTH = 18;
     public static final double WIDTH = 24.5;
+
+    public static final int DriverChannel = 0;
+    public static final int OperatorChannel = 1;
 }

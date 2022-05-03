@@ -28,8 +28,11 @@
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
     "AHRS",
+    "LSTICK",
     "MAXSTEERERROR",
+    "Navx",
     "Robo",
-    "Roborio"
+    "Roborio",
+    "RSTICK"
   ]
 }
