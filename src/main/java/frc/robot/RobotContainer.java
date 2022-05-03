@@ -26,6 +26,8 @@ public class RobotContainer {
 
   public XboxController driver;
   public Joystick operator;
+  public Joystick left = new Joystick(1);
+  public Joystick right = new Joystick(2);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -35,7 +37,7 @@ public class RobotContainer {
     operator = new Joystick(Constants.OperatorChannel);
 
     CommandScheduler.getInstance().setDefaultCommand(_drive,
-    new DriveCommand(_drive, driver, _gyro));
+    new DriveCommand(_drive, left, right, _gyro));
 
     configureButtonBindings();
   }

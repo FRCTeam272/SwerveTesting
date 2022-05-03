@@ -19,6 +19,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.math.controller.PIDController; //Use for Roborio PID
 //import edu.wpi.first.math.MathUtil; // Use for RoboRio PID
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -50,10 +51,10 @@ public class swerveModule extends SubsystemBase {
 
   private double loopCounter = 0;
   private static final double MAXSTEERERROR = 5;
-  private static final double STEER_P = 3.0, STEER_I = 0.0, STEER_D = 0.1;
+  private static final double STEER_P = 15.0, STEER_I = 0.0, STEER_D = 0.01;
   private static final int STATUS_FRAME_PERIOD = 5;
 
-  public double encoderCountPerRotation = 1024;
+  public double encoderCountPerRotation = 1023;
 
   public swerveModule(int steerNum, int driveNum, boolean invertDrive, boolean invertSteer) {
 
@@ -89,6 +90,7 @@ public class swerveModule extends SubsystemBase {
     steerMotor.setSensorPhase(true);
 
     //Create the built in motor encoders
+    
   }
    
   public void setSwerve(double angle, double speed) {
@@ -104,7 +106,7 @@ public class swerveModule extends SubsystemBase {
     //SmartDashboard.putNumber(this.driveLocation.getName()+" Speed", speed);
     double currentPosition = steerMotor.getSelectedSensorPosition(0);
     //SmartDashboard.putNumber(this.driveLocation.getName()+" Current Position", currentPosition);
-    double currentAngle = (currentPosition * 360.0 / this.encoderCountPerRotation) % 360.0;
+    double currentAngle = (currentPosition * 360.0 / this.encoderCountPerRotation); //% 360.0;
     //SmartDashboard.putNumber(this.driveLocation.getName()+" Current Angle", currentAngle);
     double targetAngle = angle; //-angle;
     double deltaDegrees = targetAngle - currentAngle;
@@ -119,13 +121,13 @@ public class swerveModule extends SubsystemBase {
     // only rotate by the complement
     //if (Math.abs(speed) <= MAX_SPEED){
       if (Math.abs(deltaDegrees) > 90.0) {
-      	deltaDegrees -= 180.0 * Math.signum(deltaDegrees);
+      	deltaDegrees = deltaDegrees - 180.0 * Math.signum(deltaDegrees);
       	speed = -speed;
       }
 	  //}
     //Add change in position to current position
     //double targetPosition = currentAngle + deltaDegrees; 
-    double targetPosition = currentPosition + ((deltaDegrees/360) * encoderCountPerRotation);
+    double targetPosition = currentPosition + deltaDegrees; // ((deltaDegrees/360) * encoderCountPerRotation);
     //Scale the new position to match the motor encoder
     //double scaledPosition = (targetPosition / (360/STEER_MOTOR_RATIO)); 
 
@@ -140,21 +142,19 @@ public class swerveModule extends SubsystemBase {
 
 
     //Use Dashboard items to help debug
-    // SmartDashboard.putNumber("Incoming Angle", angle);
-    // SmartDashboard.putNumber("CurAngle", currentAngle);
-    // SmartDashboard.putNumber("TargetAngle", targetAngle);
-    // SmartDashboard.putNumber("currentSteerPosition", currentSteerPosition);
-    // SmartDashboard.putNumber("DeltaDegrees", deltaDegrees);
-    // SmartDashboard.putNumber("TargetPosition", targetPosition);
-    // SmartDashboard.putNumber("Steer Output", scaledPosition);
-    // SmartDashboard.putNumber("currentPosition", currentAngle);
-    // SmartDashboard.putNumber("Steer Output", steerOutput);
+    SmartDashboard.putNumber("Incoming Angle", angle);
+    SmartDashboard.putNumber("CurAngle", currentAngle);
+    SmartDashboard.putNumber("TargetAngle", targetAngle);
+    SmartDashboard.putNumber("DeltaDegrees", deltaDegrees);
+    SmartDashboard.putNumber("TargetPosition", targetPosition);
+    SmartDashboard.putNumber("currentPosition", currentAngle);
+    SmartDashboard.putNumber("Steer Output", currentAngle);
   }
 
   
   //Get the built in Spark/Neo Drive motor encoder position. Value is in motor revolutions.
   public double getDriveEncoder() {
-    return 0;
+    return driveMotor.getMotorOutputPercent();
   }
   
   //Set the position value of the Spark/Neo Drive motor encoder position. Position is in 

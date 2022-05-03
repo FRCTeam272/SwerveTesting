@@ -27,8 +27,8 @@ public final class Constants {
     public static final double FL_Offset = 514;
 
     
-    public static final int BL_TurnChannel = 12;
-    public static final int BL_SpeedChannel = 22;
+    public static final int BL_TurnChannel = 22;
+    public static final int BL_SpeedChannel = 12;
     public static final double BL_Offset = 481;
 
     public static final double LENGTH = 18;
