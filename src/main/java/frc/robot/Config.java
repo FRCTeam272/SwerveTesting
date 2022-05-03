@@ -38,7 +38,50 @@ public class Config {
     }
 
     public static class Intake {
-        
+        public static class PositionControlMotor{
+            public static int port = 25;
+            public static double kp = 0.001;
+            public static double kI = 0;
+            public static double kD = 0;
+            public static double kIz = 0;
+            public static double kFF = 0.00015;
+            public static double kMaxOutput = 1;
+            public static double kMinOutput = -1;
+            public static int maxRPM = 5700;
+            public static String motorType = "SPARK_Max with CAN";
+        }
+
+        public static class BeltMotor{
+            public static int Port = 42;
+            public static double kP = 0.001;
+            public static double kI = 0;
+            public static double kD = 0;
+            public static double kIz = 0;
+            public static double kFF = 0.00015;
+            public static double kMaxOutput = 1;
+            public static double kMinOutput = -1;
+            public static int maxRPM = 5700;
+            public static String motorType = "SPARK_Max with CAN";
+        }
+    }
+
+    public static class Hanger{
+        public static class HangerMotor{
+            public static int port = 41;
+            public static double kP = 0.001;
+            public static double kI = 0;
+            public static double kD = 0;
+            public static double kIz = 0;
+            public static double kFF = 0.00015;
+            public static double kMaxOutput = 1;
+            public static double kMinOutput = -1;
+            public static int MAXrpm = 5700;
+            public static String motorType = "SPARK_Max with Can";
+        }
+    }
+
+    public static class Presenter{
+        public static int port = 24;
     }
 
     public static class DriveTrain {
@@ -58,4 +101,6 @@ public class Config {
 
         }
     }
+
+    public static double slowDownValue = 0.6;
 }
